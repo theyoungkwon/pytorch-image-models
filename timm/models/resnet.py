@@ -48,6 +48,7 @@ default_cfgs = {
         test_crop_pct=0.95, test_input_size=(3, 224, 224),
         first_conv='conv1.0'),
     'resnet18': _cfg(url='https://download.pytorch.org/models/resnet18-5c106cde.pth'),
+    'resnet18_gn': _cfg(url=''),
     'resnet18d': _cfg(
         url='https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-weights/resnet18d_ra2-48a79e06.pth',
         interpolation='bicubic', first_conv='conv1.0'),
@@ -864,6 +865,12 @@ def resnet18(pretrained=False, **kwargs):
     model_args = dict(block=BasicBlock, layers=[2, 2, 2, 2])
     return _create_resnet('resnet18', pretrained, **dict(model_args, **kwargs))
 
+@register_model
+def resnet18_gn(pretrained=False, **kwargs):
+    """Constructs a ResNet-18 model w/ GroupNorm.
+    """
+    model_args = dict(block=BasicBlock, layers=[2, 2, 2, 2], **kwargs)
+    return _create_resnet('resnet18_gn', pretrained, norm_layer=GroupNorm, **model_args)
 
 @register_model
 def resnet18d(pretrained=False, **kwargs):

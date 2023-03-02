@@ -1480,6 +1480,11 @@ def mobilenetv2_100(pretrained=False, **kwargs):
     model = _gen_mobilenet_v2('mobilenetv2_100', 1.0, pretrained=pretrained, **kwargs)
     return model
 
+@register_model
+def mobilenetv2_100_gn(pretrained=False, **kwargs):
+    """ MobileNet V2 w/ 1.0 channel multiplier w/ Group Norm """
+    model = _gen_mobilenet_v2('mobilenetv2_100_gn', 1.0, norm_layer=partial(GroupNormAct, group_size=8), pretrained=pretrained, **kwargs)
+    return model
 
 @register_model
 def mobilenetv2_140(pretrained=False, **kwargs):
